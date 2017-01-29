@@ -339,7 +339,7 @@ class Matrix {
 
     /**
      * creates i
-     * @param [n=4]
+     * @param {number} [n=4]
      * @returns {Matrix}
      */
     static identity(n) {
@@ -428,8 +428,8 @@ class Matrix {
         return result;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Matrix;
 
+/* harmony default export */ __webpack_exports__["a"] = Matrix;
 
 /***/ }),
 /* 1 */
@@ -445,7 +445,13 @@ class Matrix {
 
 
 
+/**
+ * The most important class of all library
+ */
 class Context {
+    /**
+     * @param {HTMLCanvasElement} canvas Where image should be rendered
+     */
     constructor(canvas) {
         this._gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
         if (!this._gl) {
@@ -464,15 +470,15 @@ class Context {
     }
 
     /**
-     * @param {string} srcURI i.e.
-     * @param {Number} type i.e.
+     * @param {string} srcURI
+     * @param {Number} type
      * @returns {Promise<Shader>}
      */
     createShader(srcURI, type) {
         return fetch(srcURI)
             .then(response => response.text())
             .then(source => {
-                const gl = this.gl;
+                let gl = this.gl;
                 let shader = gl.createShader(type);
                 if (!shader) {
                     return Promise.reject(new Error(`invalid type: '${type}'`));
@@ -543,8 +549,8 @@ class Context {
         return new __WEBPACK_IMPORTED_MODULE_2__Mesh__["a" /* default */](this, program);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Context;
 
+/* harmony default export */ __webpack_exports__["a"] = Context;
 
 /***/ }),
 /* 2 */
@@ -598,6 +604,23 @@ class Quaternion {
     }
 
     /**
+     * @returns {Matrix} 4x4
+     */
+    toMatrix() {
+        let q0 = this._r;
+        let q1 = this._v.getValue(0);
+        let q2 = this._v.getValue(1);
+        let q3 = this._v.getValue(2);
+
+        return __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].fromRows([
+            [1 - 2 * (q2 * q2 + q3 * q3), 2 * (q1 * q2 - q0 * q3), 2 * (q0 * q2 + q1 * q3), 0],
+            [2 * (q1 * q2 + q0 * q3), 1 - 2 * (q1 * q1 + q3 * q3), 2 * (q2 * q3 - q0 * q1), 0],
+            [2 * (q1 * q3 - q0 * q2), 2 * (q0 * q1 + q2 * q3), 1 - 2 * (q1 * q1 + q2 * q2), 0],
+            [0, 0, 0, 1]
+        ]);
+    }
+
+    /**
      * @param {Matrix} axis
      * @param {Number} angle
      * @returns {Quaternion}
@@ -614,7 +637,7 @@ class Quaternion {
             angle = 0;
             length = 1;
         }
-        axis.mult(1 / length);
+        axis = axis.mult(1 / length);
 
         angle *= 0.5;
 
@@ -634,12 +657,11 @@ class Quaternion {
      * @param {Number} angle
      * @returns {Quaternion}
      */
-    static rotateDegrees(axis, angle){
+    static rotateDegrees(axis, angle) {
         return Quaternion.rotateRadians(axis, angle / 180 * Math.PI);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Quaternion;
-
+/* harmony default export */ __webpack_exports__["a"] = Quaternion;
 
 /***/ }),
 /* 3 */
@@ -761,8 +783,8 @@ class Mesh {
         this._buffers = {};
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Mesh;
 
+/* harmony default export */ __webpack_exports__["a"] = Mesh;
 
 /***/ }),
 /* 4 */
@@ -787,10 +809,16 @@ class Program {
         this._uniformLocations = {};
     }
 
+    /**
+     * Makes this program active
+     */
     use() {
         this._context.gl.useProgram(this._program);
     }
 
+    /**
+     * Correctly deletes this program and child shaders
+     */
     dispose() {
         let gl = this._context.gl;
 
@@ -837,8 +865,8 @@ class Program {
         return location;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Program;
 
+/* harmony default export */ __webpack_exports__["a"] = Program;
 
 /***/ }),
 /* 5 */
@@ -857,21 +885,30 @@ class Shader {
         this._shader = shader;
     }
 
+    /**
+     * @returns {Context}
+     */
     get context(){
         return this._context;
     }
 
+    /**
+     * @returns {WebGLShader}
+     */
     get shader(){
         return this._shader;
     }
 
+    /**
+     * Correctly deletes shader from WebGL context
+     */
     dispose(){
         let gl = this._context.gl;
         gl.deleteShader(this._shader);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Shader;
 
+/* harmony default export */ __webpack_exports__["a"] = Shader;
 
 /***/ }),
 /* 6 */
@@ -888,8 +925,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-let q = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([1, 0, 0]), 0);
-
 let canvas = document.getElementById('glcanvas');
 
 let ctx = new __WEBPACK_IMPORTED_MODULE_0__lib_Context__["a" /* default */](canvas);
@@ -899,6 +934,26 @@ let fragmentShaderPromise = ctx.createShader('./shaders/fragment.glsl', ctx.gl.F
 let programPromise = ctx.createProgram([vertexShaderPromise, fragmentShaderPromise]);
 
 let vertexData = [
+    -1, -1, -1,
+    -1, -1, 1,
+    -1, 1, -1,
+    -1, 1, 1,
+
+    1, -1, -1,
+    1, -1, 1,
+    1, 1, -1,
+    1, 1, 1,
+
+
+    //axis
+    0, 0, 0,
+    2, 0, 0,
+
+    0, 0, 0,
+    0, 2, 0
+];
+
+let colorData = [
     0, 0, 0,
     0, 0, 1,
     0, 1, 0,
@@ -908,18 +963,24 @@ let vertexData = [
     1, 0, 1,
     1, 1, 0,
     1, 1, 1,
+
+    1, 1, 1,
+    1, 1, 1,
+
+    1, 1, 1,
+    1, 1, 1
 ];
-
-let colorData = vertexData.slice(0);
-
-vertexData = vertexData.map((x, i) => x * 2 - 1);
 
 let indices = [
     0, 1, 0, 2, 0, 4,
     1, 3, 1, 5,
     2, 3, 2, 6,
     4, 5, 4, 6,
-    7, 6, 7, 5, 7, 3
+    7, 6, 7, 5, 7, 3,
+
+    //axis
+    8,9,
+    10, 11
 ];
 
 const perspective = __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].perspective(60, canvas.width / canvas.height, 0.1, 100.0);
@@ -970,16 +1031,11 @@ programPromise.then(program => {
     });
 
     let angle = 0;
-    let rotation = __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].identity();
     setInterval(function () {
-        angle++;
-        let cos = Math.cos(angle / 180 * Math.PI);
-        let sin = Math.sin(angle / 180 * Math.PI);
-        rotation.setValue(0, 0, cos);
-        rotation.setValue(0, 2, sin);
-        rotation.setValue(2, 0, -sin);
-        rotation.setValue(2, 2, cos);
-        mesh.setUniformMatrix('modelView', translate.mult(rotation));
+        angle+=0.1;
+        let rotation = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 1, 0]), angle)
+            .mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([1, 0, 0]), angle * 0.1));
+        mesh.setUniformMatrix('modelView', translate.mult(rotation.toMatrix()));
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         mesh.render('indices');
     }, 0);
