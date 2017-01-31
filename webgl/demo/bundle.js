@@ -446,7 +446,7 @@ class Matrix {
 
 
 /**
- * The most important class of all library
+ * The most important class of entire library
  */
 class Context {
     /**
@@ -565,19 +565,20 @@ const PRECISION = 1e-6;
 
 class Quaternion {
     /**
-     * @param {Matrix} vector - 4d unit (+-1e-6) vector
+     * @param {number} scalar
+     * @param {Matrix} vector
      */
-    constructor(vector) {
-        if (!__WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].isVector(vector, 4))
-            throw new TypeError('invalid parameter');
+    constructor(scalar, vector) {
+        let valid = typeof scalar === 'number' && __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].isVector(vector, 3);
+        if (!valid)
+            throw new Error('invalid arguments type');
 
-        let length = vector.length();
-
+        let length = scalar * scalar + vector.dot(vector);
         if (Math.abs(length - 1) > PRECISION)
-            throw new TypeError('vector should be unit');
+            throw new Error('quaternion must have unit length');
 
-        this._r = vector.getValue(0);
-        this._v = __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector([vector.getValue(1), vector.getValue(2), vector.getValue(3)]);
+        this._w = scalar;
+        this._v = vector.clone();
     }
 
     /**
@@ -586,8 +587,8 @@ class Quaternion {
      * @returns {Quaternion}
      */
     mult(q) {
-        let r1 = this._r;
-        let r2 = q._r;
+        let r1 = this._w;
+        let r2 = q._w;
 
         let v1 = this._v;
         let v2 = q._v;
@@ -595,19 +596,35 @@ class Quaternion {
         let scalarPart = r1 * r2 - v1.dot(v2);
         let vectorPart = v2.mult(r1).add(v1.mult(r2)).add(v1.cross(v2));
 
-        return new Quaternion(__WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector([
-            scalarPart,
-            vectorPart.getValue(0),
-            vectorPart.getValue(1),
-            vectorPart.getValue(2)
-        ]));
+        return new Quaternion(scalarPart, vectorPart);
     }
 
     /**
-     * @returns {Matrix} 4x4
+     * @returns {Quaternion}
+     */
+    clone() {
+        return new Quaternion(this._w, this._v.clone());
+    }
+
+    /**
+     * @returns {Quaternion}
+     */
+    conjugate() {
+        return new Quaternion(this._w, this._v.mult(-1))
+    }
+
+    /**
+     * @returns Matrix returns axial vector
+     */
+    toAxis(){
+        return this._v.mult(2 * Math.acos(this._w) / this._v.length());
+    }
+
+    /**
+     * @returns {Matrix} converts into ordinary 4x4 matrix
      */
     toMatrix() {
-        let q0 = this._r;
+        let q0 = this._w;
         let q1 = this._v.getValue(0);
         let q2 = this._v.getValue(1);
         let q3 = this._v.getValue(2);
@@ -628,7 +645,7 @@ class Quaternion {
 
     static rotateRadians(axis, angle) {
         if (!__WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].isVector(axis, 3))
-            throw new TypeError('Axis shoud be 3d vector');
+            throw new TypeError('Axis should be 3d vector');
 
         let length = axis.length();
 
@@ -644,12 +661,7 @@ class Quaternion {
         let scalarPart = Math.cos(angle);
         let vectorPart = axis.mult(Math.sin(angle));
 
-        return new Quaternion(__WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector([
-            scalarPart,
-            vectorPart.getValue(0),
-            vectorPart.getValue(1),
-            vectorPart.getValue(2)
-        ]));
+        return new Quaternion(scalarPart, vectorPart);
     }
 
     /**
@@ -934,23 +946,15 @@ let fragmentShaderPromise = ctx.createShader('./shaders/fragment.glsl', ctx.gl.F
 let programPromise = ctx.createProgram([vertexShaderPromise, fragmentShaderPromise]);
 
 let vertexData = [
-    -1, -1, -1,
-    -1, -1, 1,
-    -1, 1, -1,
-    -1, 1, 1,
+    -0.5, -0.25, -1,
+    -0.5, -0.25, 1,
+    -0.5, 0.25, -1,
+    -0.5, 0.25, 1,
 
-    1, -1, -1,
-    1, -1, 1,
-    1, 1, -1,
-    1, 1, 1,
-
-
-    //axis
-    0, 0, 0,
-    2, 0, 0,
-
-    0, 0, 0,
-    0, 2, 0
+    0.5, -0.25, -1,
+    0.5, -0.25, 1,
+    0.5, 0.25, -1,
+    0.5, 0.25, 1
 ];
 
 let colorData = [
@@ -962,12 +966,6 @@ let colorData = [
     1, 0, 0,
     1, 0, 1,
     1, 1, 0,
-    1, 1, 1,
-
-    1, 1, 1,
-    1, 1, 1,
-
-    1, 1, 1,
     1, 1, 1
 ];
 
@@ -976,11 +974,7 @@ let indices = [
     1, 3, 1, 5,
     2, 3, 2, 6,
     4, 5, 4, 6,
-    7, 6, 7, 5, 7, 3,
-
-    //axis
-    8,9,
-    10, 11
+    7, 6, 7, 5, 7, 3
 ];
 
 const perspective = __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].perspective(60, canvas.width / canvas.height, 0.1, 100.0);
@@ -1030,11 +1024,27 @@ programPromise.then(program => {
         attribute: 'vColor'
     });
 
-    let angle = 0;
-    setInterval(function () {
-        angle+=0.1;
-        let rotation = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 1, 0]), angle)
-            .mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([1, 0, 0]), angle * 0.1));
+    let initial = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 0, 0]), 0);
+    let final = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 1, 0]), 90)
+        .mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 0, 1]), 180));
+
+    function interpolateRotation(initial, final, step){
+        let delta = initial.conjugate().mult(final);
+        let axis = delta.toAxis();
+        let radians = axis.length();
+
+        return initial.mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateRadians(axis, radians * step))
+    }
+
+    let step = 0;
+    let steps = 1000;
+    let interval = setInterval(function () {
+
+        let rotation = interpolateRotation(initial, final, step / steps);
+        step++;
+        if (step > steps)
+            clearInterval(interval);
+
         mesh.setUniformMatrix('modelView', translate.mult(rotation.toMatrix()));
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         mesh.render('indices');
