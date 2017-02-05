@@ -584,14 +584,20 @@ class Context {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Matrix__ = __webpack_require__(0);
+
+
 
 
 class ObjFile {
+    /**
+     *
+     * @param {string} text obj file content
+     */
     constructor(text) {
         let lines = text.split('\n');
-        this.vertices = [];
-        this.triangles = [];
-        this.lines = [];
+        this._vertices = [];
+        this._triangles = [];
 
         lines.forEach(line => {
             let tokens = line.split(' ');
@@ -600,9 +606,11 @@ class ObjFile {
 
             switch (tokens[0]) {
                 case 'v':
-                    this.vertices.push(parseFloat(tokens[1]));
-                    this.vertices.push(parseFloat(tokens[2]));
-                    this.vertices.push(parseFloat(tokens[3]));
+                    let x = parseFloat(tokens[1]);
+                    let y = parseFloat(tokens[2]);
+                    let z = parseFloat(tokens[3]);
+
+                    this._vertices.push([x, y, z]);
                     break;
 
                 case 'f':
@@ -610,21 +618,81 @@ class ObjFile {
                     let b = parseInt(tokens[2]) - 1;
                     let c = parseInt(tokens[3]) - 1;
 
-                    this.triangles.push(a);
-                    this.triangles.push(b);
-                    this.triangles.push(c);
-
-                    this.lines.push(a);
-                    this.lines.push(b);
-
-                    this.lines.push(b);
-                    this.lines.push(c);
-
-                    this.lines.push(c);
-                    this.lines.push(a);
+                    this._triangles.push([a, b, c]);
                     break;
             }
         });
+    }
+
+    getNormalsArray() {
+        let verticesTriangles = new Array(this._vertices.length);
+        let result = [];
+
+        this._triangles.forEach((triangle, tIndex) =>
+            triangle.forEach(vIndex => {
+                if (verticesTriangles[vIndex] === undefined)
+                    verticesTriangles[vIndex] = [];
+
+                verticesTriangles[vIndex].push(tIndex);
+            }));
+
+
+        verticesTriangles.forEach(triangles => {
+            let normal = __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector([0, 0, 0]);
+
+            triangles.forEach(tIndex => {
+                let triangle = this._triangles[tIndex];
+
+                let a = __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector(this._vertices[triangle[0]]);
+                let b = __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector(this._vertices[triangle[1]]);
+                let c = __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector(this._vertices[triangle[2]]);
+
+                let cross = b.sub(a).cross(c.sub(a));
+                normal = cross.mult(1 / cross.length()).add(normal);
+            });
+
+            normal = normal.mult(1 / normal.length());
+
+            result.push(normal.getValue(0));
+            result.push(normal.getValue(1));
+            result.push(normal.getValue(2));
+        });
+
+        return result;
+    }
+
+    getVerticesArray() {
+        let result = [];
+        this._vertices.forEach(vertex => result = result.concat(vertex));
+        return result;
+    }
+
+    /**
+     * @returns {Array<number>}
+     */
+    getTrianglesArray() {
+        let result = [];
+        this._triangles.forEach(face => result = result.concat(face));
+        return result;
+    }
+
+    /**
+     * @returns {Array<number>}
+     */
+    getLinesArray() {
+        let result = [];
+        this._triangles.forEach(face => {
+            result.push(face[0]);
+            result.push(face[1]);
+
+            result.push(face[1]);
+            result.push(face[2]);
+
+            result.push(face[2]);
+            result.push(face[0]);
+        });
+
+        return result;
     }
 
     static loadAsync(url) {
@@ -1088,14 +1156,14 @@ Promise.all([objPromise, programPromise]).then(results => {
 
     let mesh = ctx.createMesh(program);
 
-    mesh.setUniformMatrix('projection', perspective);
-    mesh.loadAttribute3f('vPosition', objFile.vertices);
-    mesh.loadAttribute3f('vColor', objFile.vertices.map(v => 1));
+    mesh.setUniformMatrix('uProjection', perspective);
+    mesh.loadAttribute3f('aPosition', objFile.getVerticesArray());
+    mesh.loadAttribute3f('aNormal', objFile.getNormalsArray());
 
     mesh.setBufferData({
         bufferName: 'triangles',
         target: gl.ELEMENT_ARRAY_BUFFER,
-        data: new Uint16Array(objFile.triangles),
+        data: new Uint16Array(objFile.getTrianglesArray()),
         usage: gl.STATIC_DRAW,
         dataType: gl.UNSIGNED_SHORT,
         mode: gl.TRIANGLES
@@ -1104,7 +1172,7 @@ Promise.all([objPromise, programPromise]).then(results => {
     mesh.setBufferData({
         bufferName: 'lines',
         target: gl.ELEMENT_ARRAY_BUFFER,
-        data: new Uint16Array(objFile.lines),
+        data: new Uint16Array(objFile.getLinesArray()),
         usage: gl.STATIC_DRAW,
         dataType: gl.UNSIGNED_SHORT,
         mode: gl.LINES
@@ -1113,10 +1181,10 @@ Promise.all([objPromise, programPromise]).then(results => {
     let rotation = __WEBPACK_IMPORTED_MODULE_2__webgl_library_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__webgl_library_Matrix__["a" /* default */].vector([0, 0, 0]), 0);
     setInterval(function () {
         rotation = rotation.mult(__WEBPACK_IMPORTED_MODULE_2__webgl_library_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__webgl_library_Matrix__["a" /* default */].vector([0, 1, 0]), 0.1));
-        mesh.setUniformMatrix('modelView', translate.mult(rotation.toMatrix()));
+        mesh.setUniformMatrix('uModelView', translate.mult(rotation.toMatrix()));
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        //mesh.render('triangles');
-        mesh.render('lines');
+        mesh.render('triangles');
+        //mesh.render('lines');
     }, 0);
 });
 
