@@ -1,6 +1,39 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules, executeModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [], result;
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules, executeModules);
+/******/ 		while(resolves.length)
+/******/ 			resolves.shift()();
+/******/ 		if(executeModules) {
+/******/ 			for(i=0; i < executeModules.length; i++) {
+/******/ 				result = __webpack_require__(__webpack_require__.s = executeModules[i]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	};
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// objects to store loaded and loading chunks
+/******/ 	var installedChunks = {
+/******/ 		2: 0
+/******/ 	};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +59,49 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return Promise.resolve();
+/******/
+/******/ 		// an Promise means "currently loading".
+/******/ 		if(installedChunks[chunkId]) {
+/******/ 			return installedChunks[chunkId][2];
+/******/ 		}
+/******/ 		// start chunk loading
+/******/ 		var head = document.getElementsByTagName('head')[0];
+/******/ 		var script = document.createElement('script');
+/******/ 		script.type = 'text/javascript';
+/******/ 		script.charset = 'utf-8';
+/******/ 		script.async = true;
+/******/ 		script.timeout = 120000;
+/******/
+/******/ 		if (__webpack_require__.nc) {
+/******/ 			script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 		}
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + ".js";
+/******/ 		var timeout = setTimeout(onScriptComplete, 120000);
+/******/ 		script.onerror = script.onload = onScriptComplete;
+/******/ 		function onScriptComplete() {
+/******/ 			// avoid mem leaks in IE.
+/******/ 			script.onerror = script.onload = null;
+/******/ 			clearTimeout(timeout);
+/******/ 			var chunk = installedChunks[chunkId];
+/******/ 			if(chunk !== 0) {
+/******/ 				if(chunk) chunk[1](new Error('Loading chunk ' + chunkId + ' failed.'));
+/******/ 				installedChunks[chunkId] = undefined;
+/******/ 			}
+/******/ 		};
+/******/
+/******/ 		var promise = new Promise(function(resolve, reject) {
+/******/ 			installedChunks[chunkId] = [resolve, reject];
+/******/ 		});
+/******/ 		installedChunks[chunkId][2] = promise;
+/******/
+/******/ 		head.appendChild(script);
+/******/ 		return promise;
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -62,8 +138,8 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -222,19 +298,46 @@ class Matrix {
     }
 
     /**
+     * @param {number} i
+     * @param {number} j
+     */
+    swapRows(i, j) {
+        if (i === j) return;
+        for (let column = 0; column < this.columns; ++column) {
+            let temp = this.getValue(i, column);
+            this.setValue(i, column, this.getValue(j, column));
+            this.setValue(j, column, temp);
+        }
+    }
+
+    _findNonZeroUnder(row, column) {
+        while (row < this.rows) {
+            if (this.getValue(row, column))
+                return row;
+            row++;
+        }
+        return null;
+    }
+
+    /**
      * @returns {Matrix}
      */
     inverse() {
         if (this.rows != this.columns || this.rows < 1)
             throw new TypeError("invalid matrix sizes");
 
-        let result = Matrix.createIdentityMatrix(this.rows);
+        let result = Matrix.identity(this.rows);
         let self = this.clone();
 
         for (let i = 0; i < self.rows; ++i) {
-            let diagonal = self.getValue(i, i);
-            if (diagonal === 0)
+            let row = self._findNonZeroUnder(i, i);
+            if (row === null)
                 throw new Error("determinants equals zero");
+
+            self.swapRows(i, row);
+            result.swapRows(i, row);
+
+            let diagonal = self.getValue(i, i);
 
             for (let j = 0; j < self.columns; ++j) {
                 self.setValue(i, j, self.getValue(i, j) / diagonal);
@@ -295,7 +398,7 @@ class Matrix {
      * @returns {number}
      */
     length() {
-        if(!Matrix.isVector(this))
+        if (!Matrix.isVector(this))
             throw TypeError('this is not vector');
 
         return Math.sqrt(this.dot(this));
@@ -333,7 +436,7 @@ class Matrix {
      * @param {number} [dimension]
      * @returns {boolean}
      */
-    static isVector(tensor, dimension){
+    static isVector(tensor, dimension) {
         return tensor instanceof Matrix && tensor.columns === 1 && (dimension === undefined || tensor.rows === dimension);
     }
 
@@ -436,9 +539,9 @@ class Matrix {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Shader__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Program__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mesh__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Shader__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Program__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mesh__ = __webpack_require__(5);
 
 
 
@@ -534,7 +637,7 @@ class Context {
                 }
 
                 return new __WEBPACK_IMPORTED_MODULE_1__Program__["a" /* default */](this, shaders, program);
-            })
+            });
     }
 
     /**
@@ -610,14 +713,25 @@ class Quaternion {
      * @returns {Quaternion}
      */
     conjugate() {
-        return new Quaternion(this._w, this._v.mult(-1))
+        return new Quaternion(this._w, this._v.mult(-1));
     }
 
     /**
      * @returns Matrix returns axial vector
      */
     toAxis(){
-        return this._v.mult(2 * Math.acos(this._w) / this._v.length());
+        let length = this._v.length();
+        if(length === 0)
+            return __WEBPACK_IMPORTED_MODULE_0__Matrix__["a" /* default */].vector([0, 0, 0]);
+
+        let angle = 2 * Math.acos(this._w);
+
+        if(angle > Math.PI)
+            angle = angle - 2 * Math.PI;
+        if(angle < -Math.PI)
+            angle = angle + 2 * Math.PI;
+
+        return this._v.mult(angle / length);
     }
 
     /**
@@ -676,7 +790,9 @@ class Quaternion {
 /* harmony default export */ __webpack_exports__["a"] = Quaternion;
 
 /***/ }),
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -712,7 +828,17 @@ class Mesh {
         let gl = this._context.gl;
 
         this._program.use();
-        gl[`uniformMatrix${matrix.rows}fv`](location, false, matrix.toFloat32Array());
+        switch (matrix.rows){
+            case 2:
+                gl.uniformMatrix2fv(location, false, matrix.toFloat32Array());
+                break;
+            case 3:
+                gl.uniformMatrix3fv(location, false, matrix.toFloat32Array());
+                break;
+            case 4:
+                gl.uniformMatrix4fv(location, false, matrix.toFloat32Array());
+                break;
+        }
     }
 
     /**
@@ -777,6 +903,29 @@ class Mesh {
         }
     }
 
+
+    /**
+     * @param {string} attributeName
+     * @param {Array<number>} data
+     */
+    loadAttribute3f(attributeName, data){
+        const gl = this._context.gl;
+
+        this.setBufferData({
+            bufferName: attributeName,
+            target: gl.ARRAY_BUFFER,
+            data: new Float32Array(data),
+            usage: gl.STATIC_DRAW,
+            dimensions: 3,
+            dataType: gl.FLOAT
+        });
+
+        this.setAttribute({
+            buffer: attributeName,
+            attribute: attributeName
+        });
+    }
+
     /**
      * @param {string} indicesBuffer
      */
@@ -786,6 +935,7 @@ class Mesh {
         if(!buffer)
             throw new Error('invalid buffer name');
 
+        gl.bindBuffer(buffer.target, buffer.handle);
         gl.drawElements(buffer.mode, buffer.length, buffer.dataType, 0);
     }
 
@@ -799,7 +949,7 @@ class Mesh {
 /* harmony default export */ __webpack_exports__["a"] = Mesh;
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -881,7 +1031,7 @@ class Program {
 /* harmony default export */ __webpack_exports__["a"] = Program;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -922,137 +1072,6 @@ class Shader {
 
 /* harmony default export */ __webpack_exports__["a"] = Shader;
 
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_Context__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__ = __webpack_require__(2);
-
-
-
-
-
-
-let canvas = document.getElementById('glcanvas');
-
-let ctx = new __WEBPACK_IMPORTED_MODULE_0__lib_Context__["a" /* default */](canvas);
-
-let vertexShaderPromise = ctx.createShader('./shaders/vertex.glsl', ctx.gl.VERTEX_SHADER);
-let fragmentShaderPromise = ctx.createShader('./shaders/fragment.glsl', ctx.gl.FRAGMENT_SHADER);
-let programPromise = ctx.createProgram([vertexShaderPromise, fragmentShaderPromise]);
-
-let vertexData = [
-    -0.5, -0.25, -1,
-    -0.5, -0.25, 1,
-    -0.5, 0.25, -1,
-    -0.5, 0.25, 1,
-
-    0.5, -0.25, -1,
-    0.5, -0.25, 1,
-    0.5, 0.25, -1,
-    0.5, 0.25, 1
-];
-
-let colorData = [
-    0, 0, 0,
-    0, 0, 1,
-    0, 1, 0,
-    0, 1, 1,
-
-    1, 0, 0,
-    1, 0, 1,
-    1, 1, 0,
-    1, 1, 1
-];
-
-let indices = [
-    0, 1, 0, 2, 0, 4,
-    1, 3, 1, 5,
-    2, 3, 2, 6,
-    4, 5, 4, 6,
-    7, 6, 7, 5, 7, 3
-];
-
-const perspective = __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].perspective(60, canvas.width / canvas.height, 0.1, 100.0);
-
-programPromise.then(program => {
-    let gl = ctx.gl;
-
-    let translate = __WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].translate(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 0, -5]));
-
-    let mesh = ctx.createMesh(program);
-    mesh.setUniformMatrix('projection', perspective);
-
-    mesh.setBufferData({
-        bufferName: 'vertices',
-        target: gl.ARRAY_BUFFER,
-        data: new Float32Array(vertexData),
-        usage: gl.STATIC_DRAW,
-        dimensions: 3,
-        dataType: gl.FLOAT
-    });
-
-    mesh.setBufferData({
-        bufferName: 'colors',
-        target: gl.ARRAY_BUFFER,
-        data: new Float32Array(colorData),
-        dimensions: 3,
-        dataType: gl.FLOAT,
-        usage: gl.STATIC_DRAW
-    });
-
-    mesh.setBufferData({
-        bufferName: 'indices',
-        target: gl.ELEMENT_ARRAY_BUFFER,
-        data: new Uint16Array(indices),
-        usage: gl.STATIC_DRAW,
-        dataType: gl.UNSIGNED_SHORT,
-        mode: gl.LINES
-    });
-
-    mesh.setAttribute({
-        buffer: 'vertices',
-        attribute: 'vPosition'
-    });
-
-    mesh.setAttribute({
-        buffer: 'colors',
-        attribute: 'vColor'
-    });
-
-    let initial = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 0, 0]), 0);
-    let final = __WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 1, 0]), 90)
-        .mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateDegrees(__WEBPACK_IMPORTED_MODULE_1__lib_Matrix__["a" /* default */].vector([0, 0, 1]), 180));
-
-    function interpolateRotation(initial, final, step){
-        let delta = initial.conjugate().mult(final);
-        let axis = delta.toAxis();
-        let radians = axis.length();
-
-        return initial.mult(__WEBPACK_IMPORTED_MODULE_2__lib_Quaternion__["a" /* default */].rotateRadians(axis, radians * step))
-    }
-
-    let step = 0;
-    let steps = 1000;
-    let interval = setInterval(function () {
-
-        let rotation = interpolateRotation(initial, final, step / steps);
-        step++;
-        if (step > steps)
-            clearInterval(interval);
-
-        mesh.setUniformMatrix('modelView', translate.mult(rotation.toMatrix()));
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        mesh.render('indices');
-    }, 0);
-
-
-}).catch(console.log);
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=commons.js.map
