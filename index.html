@@ -6,24 +6,52 @@
 </head>
 <body>
 
-<h3>Physically based modelling</h3>
-<p>Theory can be found <a href="https://www.cs.cmu.edu/~baraff/sigcourse/">here</a></p>
+<h2>Anton Vasin</h2>
 <p>
-    <a href="./physically-based-modeling/ode-solver/index.html">Ordinary differential equation solver (Hook's law,
-        Runge-Kutta)</a> <br>
-    <a href="./physically-based-modeling/constrained-dynamics/index.html">Quadruple pendulum</a>
+  <p>You can find me on <a href="https://www.linkedin.com/in/tony-space">LinkedIn.</a></p>
 </p>
 
-<h3>WebGL</h3>
+
+<h2>1. Physically based modeling</h2>
 <p>
-    <a href="./webgl/demos/bunny">Stanford Bunny</a><br>
-    <a href="./webgl/demos/surface0">Flat surface</a><br>
-    <a href="./webgl/demos/surface1">Cone surface using vertex shader</a><br>
-    <a href="./webgl/demos/surface2">Cut off unnecessary cone parts</a><br>
-    <a href="./webgl/demos/surface3">Hyperbolic paraboloid</a><br>
+  <p>
+    <a href="./physically-based-modeling/constrained-dynamics/index.html">Constrained dynamics simulation</a> is inspired by a by Carnegie Mellon University's <a href="https://www.cs.cmu.edu/~baraff/sigcourse/">course</a>.
+  </p>
+  <img src="./showcase/img/constrained.png">
+  <p>
+    The main feature of the simulation is that it's using ideal constraints as joints between material points, not springs. <br>
+    If you're keen on the math model the simulation based on, please take a look at <b>'Constrained Dynamics'</b> lecture. <br>
+  </p>
+  <p>
+    <a href="https://bitbucket.org/tony-space/physically-based-modeling/src/master/constrained-dynamics/">The source code<a>
+  </p>
 </p>
 
-<footer>Copyright (c) 2017 Vasin Anton</footer>
+<h2>2. Pure WebGL</h2>
+<p>
+  <p>
+    <a href="./webgl/demos/bunny">Stanford Bunny</a> is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.<br>
+  </p>
+  <img src="./showcase/img/bunny.jpg">
+  <p>
+    <a href="https://bitbucket.org/tony-space/webgl/src">The source code</a>
+  </p>
+</p>
+
+<h2>3. CUDA physics simulations</h2>
+<p>
+  <p>
+    The project is inspired by <a href="https://www.youtube.com/playlist?list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2">Intro to parallel programming</a> course by Udacity and
+    some of <a href="https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html">GPU Gems 3</a> articles.
+  </p>
+  <a href="./showcase/img/galaxies.jpg"><img src="./showcase/img/galaxies.jpg" width="800"></a>
+  <p>
+    Demos can be found on <a href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw">Youtube</a>.
+  </p>
+  <p>
+    <a href="https://bitbucket.org/tony-space/learning-cuda/src/master/">The repository</a><br>
+  </p>
+</p>
 
 </body>
 </html>
