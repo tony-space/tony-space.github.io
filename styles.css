@@ -30,6 +30,11 @@
   border-bottom: 1px solid;
 }
 
+.section img {
+  display: block;
+  margin: auto;
+}
+
 footer {
   height: 150px;
 }
