@@ -1,0 +1,35 @@
+.header {
+  margin: auto;
+  max-width: 900px;
+}
+
+.header h1 {
+  float: left;
+}
+
+.header div {
+  float: right;
+  line-height: 75px;
+}
+
+.section-break {
+  clear:both;
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid;
+}
+
+
+.section {
+  clear: both;
+  margin: auto;
+  max-width: 900px;
+}
+
+.section h2 {
+  border-bottom: 1px solid;
+}
+
+footer {
+  height: 150px;
+}
