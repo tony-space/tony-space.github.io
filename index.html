@@ -43,19 +43,58 @@
     <a href="https://github.com/tony-space/webgl">The source code</a>
   </p>
 
-  <h2>3. CUDA physics simulations</h2>
+  <h2>3. Simple CUDA-based physics simulations</h2>
 
   <p>
     The project is inspired by <a href="https://www.youtube.com/playlist?list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2">Intro to parallel programming</a> course by Udacity and
     some of <a href="https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html">GPU Gems 3</a> articles.
   </p>
-  <a href="./showcase/img/galaxies.jpg"><img src="./showcase/img/galaxies.jpg" width="800" alt="CUDA Galaxies"></a>
-  <p>
-    Demos can be found on <a href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw">Youtube</a>.
+  <p style="text-align:center;">
+    <!--<a href="./showcase/img/galaxies.jpg"><img src="./showcase/img/galaxies.jpg" width="800" alt="CUDA Galaxies"></a> -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/s08MgdxT6wg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/1XhtUBxeYwY" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/R_SuIDaajrw" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </p>
   <p>
-    <a href="https://github.com/tony-space/learning-cuda">The repository</a><br>
+    More demos can be found on <a href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw">Youtube</a>.
   </p>
+  <p>
+    <a href="https://github.com/tony-space/learning-cuda">The source code</a>
+  </p>
+
+  <h2>4. Airfoil simulation</h2>
+
+  <p>
+    This is a <a href="https://en.wikipedia.org/wiki/Discrete_element_method">DEM-based</a> simulation designed to test the <a href="https://www.grc.nasa.gov/www/k-12/airplane/bernnew.html">Newtonian lift</a> concept.
+  </p>
+  <p>
+    This simulation doesn't solve the Navier-Stokes equations.
+    The Navier-Stokes equations are amazing, they consider gas or a fluid as a continuum of high-level parameters such as velocity, pressure, density, viscosity, shear stress.
+    But my idea was to replicate the same phenomena the Navier-Stokes equations predict using something simple.
+    Something like a huge bunch of monoatomic molecules.
+  </p>
+  <p>
+    This is it.
+    The simulation crunches 2M particles on the GPU using <a href="https://developer.nvidia.com/blog/thinking-parallel-part-iii-tree-construction-gpu/">a highly parallel approach</a>
+    to construct <a href="https://en.wikipedia.org/wiki/Bounding_volume_hierarchy">a BVH-acceleration structure</a>.
+    This BVH-tree is necessary for making potential collision tests quickly.
+    The collision response is a simple Hooke's law.
+  </p>
+  <p>
+    Check <a href="https://github.com/tony-space/WingSimulator">README.MD</a> to know more about technical details.
+  </p>
+  <p style="text-align:center;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YDmFNMMdeBg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFrCLoRJak" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/6w9DpvgZ6_Q" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </p>
+  <p>
+    More demos can be found on <a href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0KABru36pg4CvbfkhBofAi">Youtube</a>.
+  </p>
+  <p>
+    <a href="https://github.com/tony-space/WingSimulator">The source code</a>
+  </p>
+
 </div>
 
 <h1 class="section-break">Public documents</h1>
@@ -64,7 +103,7 @@
   <h2>Education</h2>
   <ul>
   <li>Bachelor of Software Engineering <a href="https://drive.google.com/open?id=1erwW4sfZlGY1NUFcBzaQgXc8hFlLdc6E">thesis</a> (in Russian).</li>
-  <li>Master of Software Engineering <a href="https://drive.google.com/open?id=1A_hY930fvJ449kepecHTNkxUY-5VW2-Y">thesis</a> (in Russian). <a href="https://drive.google.com/open?id=1fY6pfHR7bjfLG8ANqpe1L3PGcKV7IlBY">Slides</a> (on Russian).</li>
+  <li>Master of Software Engineering <a href="https://drive.google.com/open?id=1A_hY930fvJ449kepecHTNkxUY-5VW2-Y">thesis</a> (in Russian). <a href="https://drive.google.com/open?id=1fY6pfHR7bjfLG8ANqpe1L3PGcKV7IlBY">Slides</a> (in Russian).</li>
   </ul>
 </div>
 
