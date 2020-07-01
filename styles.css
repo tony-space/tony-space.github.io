@@ -1,6 +1,13 @@
+body
+{
+    font-family: sans-serif;
+    line-height: 1.25em;
+}
+
 .header {
   margin: auto;
   max-width: 900px;
+  color: #328DAE;
 }
 
 .header h1 {
@@ -17,6 +24,7 @@
   text-align: center;
   padding-top: 30px;
   border-top: 1px solid;
+  color: #328DAE;
 }
 
 
@@ -28,6 +36,7 @@
 
 .section h2 {
   border-bottom: 1px solid;
+  color: #328DAE;
 }
 
 .section img {
