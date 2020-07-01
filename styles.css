@@ -6,8 +6,8 @@ body
 
 .header {
   margin: auto;
-  max-width: 900px;
-  color: #328DAE;
+  max-width: 1000px;
+  color: #207492;
 }
 
 .header h1 {
@@ -24,19 +24,19 @@ body
   text-align: center;
   padding-top: 30px;
   border-top: 1px solid;
-  color: #328DAE;
+  color: #207492;
 }
 
 
 .section {
   clear: both;
   margin: auto;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .section h2 {
   border-bottom: 1px solid;
-  color: #328DAE;
+  color: #207492;
 }
 
 .section img {
