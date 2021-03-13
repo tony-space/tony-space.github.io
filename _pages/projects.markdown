@@ -6,6 +6,14 @@ toc: true
 toc_sticky: true_
 header:
   image: /assets/images/projects/splash.jpg
+nbodysim:
+  - url: /assets/images/projects/galaxies.jpg
+    image_path: /assets/images/projects/galaxies.jpg
+    alt: "N-body simulation on CUDA"
+efield:
+  - url: /assets/images/projects/electric-field.png
+    image_path: /assets/images/projects/electric-field.png
+    alt: "Static Electric Field"
 ---
 A collection of my pet-projects projects.
 
@@ -54,12 +62,26 @@ I've developed a CPU-based software rasterizer using Parallel STL -- a standard 
 ## CUDA-based physics simulations
 The project is inspired by the [Intro to parallel programming](https://www.youtube.com/playlist?list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2) course by Udacity and some of [GPU Gems 3](https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html) articles.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/s08MgdxT6wg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1XhtUBxeYwY" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Fast N-Body simulation
+Even having *O(N<sup>2</sup>)* complexity the simulation manages to work in real-time processing 16384 particles.
+It utilizes the superpowers of Nvidia GPUs such as ultimate parallelism and on-chip shared memory for memory bandwidth improvements.
+{% include gallery id="nbodysim" caption="N-body simulation (clickable)" %}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R_SuIDaajrw" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Based on a GPU Gems 3 [article](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda).
 
-More demos on 
-{% include extlink.html href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw" icon=site.icons.youtube content="Youtube" %}
+### Static electrict field simulation
+This simulation is based on an electric potential field reconstruction.
+{% include gallery id="efield" caption="Static electrict field (clickable)" %}
+The field is simply a 2D matrix of vector values.
+The matrix is stored in a very specific type of 2D array -- a [Texture memory](http://cuda-programming.blogspot.com/2013/02/texture-memory-in-cuda-what-is-texture.html).
+This type of memory provides a better spatial location for euclidian space than a regular C-like 2D array.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s08MgdxT6wg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Other particle-based simulations
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1XhtUBxeYwY" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pYDWTJo18sE" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Other stuff is available
+{% include extlink.html href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw" icon=site.icons.youtube content="Youtube" %}.
 
 {% include extlink.html href="https://github.com/tony-space/learning-cuda" icon=site.icons.github content="Github page" %}
 
