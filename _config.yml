@@ -46,27 +46,38 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 repository: "tony-space/tony-space.github.io"
 github_username:  tony-space
 
+icons:
+  email: &icon-email "fas fa-fw fa-envelope-square"
+  github: &icon-github "fab fa-fw fa-github"
+  linkedin: &icon-linkedin "fab fa-fw fa-linkedin"
+  youtube: &icon-youtube "fab fa-fw fa-youtube"
+  medium: &icon-medium "fab fa-fw fa-medium"
+  habr: &icon-habr "fas fa-fw fa-link"
+
 # Site Author
 author:
-  name             : *name # *name is a YAML reference pointing to the &anchor earlier
+  name             : *name
   avatar           : "/assets/images/me.jpg"
   bio              : "Master of Science in Software Engineering, a big fan of high-performance GPGPU computing and computer graphics."
   location         : "Moscow, Russia"
   links:
+    - label: "mail@vasin.space"
+      icon: *icon-email
+      url: "mailto:mail@vasin.space"
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: *icon-github
       url: "https://github.com/tony-space/"
     - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
+      icon: *icon-linkedin
       url: "https://linkedin.com/in/tony-space"
     - label: "Youtube"
-      icon: "fab fa-fw fa-youtube"
+      icon: *icon-youtube
       url: "https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ"
     - label: "Medium"
-      icon: "fab fa-fw fa-medium"
+      icon: *icon-medium
       url: "https://tony-space.medium.com/"
     - label: "Habr"
-      icon: "fas fa-fw fa-link"
+      icon: *icon-habr
       url: "https://habr.com/ru/users/tony-space/posts/"
 
 

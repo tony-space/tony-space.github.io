@@ -7,23 +7,29 @@ toc_sticky: true_
 header:
   image: /assets/images/projects/splash.jpg
 ---
-A collection of my pet-projects projects I've worked on just for fun.
+A collection of my pet-projects projects.
 
 ## Airfoil simulation
 This is a [DEM-based](https://en.wikipedia.org/wiki/Discrete_element_method) simulation designed to test [the Newtonian lift](https://www.grc.nasa.gov/www/k-12/airplane/bernnew.html) concept.
-This simulation doesn't solve the Navier-Stokes equations. But my idea was to roughly replicate the same phenomena the Navier-Stokes equations describe using something simple. Something like a huge bunch of monoatomic molecules.
-The simulation crunches 2M particles on the GPU using [a highly parallel approach](https://developer.nvidia.com/blog/thinking-parallel-part-iii-tree-construction-gpu/) to construct [a BVH-acceleration structure](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy).
+
+The simulation process 2M particles on the GPU using [a highly parallel approach](https://developer.nvidia.com/blog/thinking-parallel-part-iii-tree-construction-gpu/) to construct [a BVH-acceleration structure](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy).
 This BVH-tree is necessary for doing potential collision tests quickly. The collision response is a simple Hooke's law.
+
+Supports both CPU and CUDA implementations.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YDmFNMMdeBg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFrCLoRJak" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6w9DpvgZ6_Q" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+More demos on
+{% include extlink.html href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0KABru36pg4CvbfkhBofAi" icon=site.icons.youtube content="Youtube" %}
 
-More demos can be found on [Youtube](https://www.youtube.com/playlist?list=PLwr8DnSlIMg0KABru36pg4CvbfkhBofAi).
+Check
+{% include extlink.html href="https://tony-space.medium.com/newtonian-lift-simulation-on-cuda-e368214750fe" icon=site.icons.medium content="Medium" %} / 
+{% include extlink.html href="https://habr.com/ru/post/519032/" icon=site.icons.habr content="Habr" %}
+to know more about technical details.
 
-Check [Medium](https://tony-space.medium.com/newtonian-lift-simulation-on-cuda-e368214750fe) / [Habr](https://habr.com/ru/post/519032/) to know more about technical details.
-
-[Github page](https://github.com/tony-space/WingSimulator).
+{% include extlink.html href="https://github.com/tony-space/WingSimulator" icon=site.icons.github content="Github page" %} /
+{% include extlink.html href="https://github.com/tony-space/WingSimulator/releases/tag/1.0.1" icon=site.icons.github content="Windows binaries" %}
 
 ## Simple Software Rasterizer
 This is just an exercise to consolidate knowledge of homogeneous coordinates and rasterization algorithms.
@@ -42,25 +48,25 @@ I've developed a CPU-based software rasterizer using Parallel STL -- a standard 
 * Gamma correction.
 * Screen space shadows
 
-[Github page](https://github.com/tony-space/SimpleSoftwareRasterizer).
+{% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer" icon=site.icons.github content="Github page" %} /
+{% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer/releases" icon=site.icons.github content="Windows/Linux binaries" %}
 
 ## CUDA-based physics simulations
-
 The project is inspired by the [Intro to parallel programming](https://www.youtube.com/playlist?list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2) course by Udacity and some of [GPU Gems 3](https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html) articles.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/s08MgdxT6wg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1XhtUBxeYwY" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R_SuIDaajrw" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-More demos can be found on [Youtube](https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw).
+More demos on 
+{% include extlink.html href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw" icon=site.icons.youtube content="Youtube" %}
 
-[Github page](https://github.com/tony-space/learning-cuda)
+{% include extlink.html href="https://github.com/tony-space/learning-cuda" icon=site.icons.github content="Github page" %}
 
 ## Pure WebGL
-
 [Stanford Bunny](https://tony-space.github.io/webgl/demos/bunny/) is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.
 
-[Github page](https://github.com/tony-space/webgl)
+{% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}
 
 ## Physically based modeling
 [Constrained dynamics simulation](https://tony-space.github.io/physically-based-modeling/constrained-dynamics/index.html) is inspired by the ["Physically Based Modeling: Principles and Practice"](https://www.cs.cmu.edu/~baraff/sigcourse/) course by Carnegie Mellon University.
@@ -69,7 +75,7 @@ The **key feature** of the simulation is that it's using **ideal constraints** a
 
 If you're keen on the math model the simulation based on, please take a look at [**Constrained Dynamics**](https://www.cs.cmu.edu/~baraff/sigcourse/notesf.pdf) lecture.
 
-[Github page](https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics).
+{% include extlink.html href="https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics" icon=site.icons.github content="Github page" %}
 
 ## Project R-7 game
 This game was made in 2010-2011 for ["Sozvezdie" ("Constellation") competition](http://www.olimpsozvezdie.ru/) among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.
