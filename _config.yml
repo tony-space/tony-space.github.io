@@ -14,7 +14,7 @@
 
 # Build settings
 theme: minimal-mistakes-jekyll
-minimal_mistakes_skin: "contrast"
+minimal_mistakes_skin: "dirt"
 plugins:
   - jekyll-include-cache
 
@@ -49,22 +49,25 @@ github_username:  tony-space
 # Site Author
 author:
   name             : *name # *name is a YAML reference pointing to the &anchor earlier
-  avatar           : "/assets/images/michael-rose.jpg"
-  bio              : "Just another *boring*, *tattooed*, *time traveling*, *designer*."
-  location         : "Buffalo, NY"
+  avatar           : "/assets/images/me.jpg"
+  bio              : "Master of Science in Software Engineering, a big fan of high-performance GPGPU computing and computer graphics."
+  location         : "Moscow, Russia"
   links:
-    - label: "Made Mistakes"
-      icon: "fas fa-fw fa-link"
-      url: "https://mademistakes.com"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/mmistakes"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/mmistakes"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mmistakes"
+      url: "https://github.com/tony-space/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "linkedin.com/in/tony-space"
+    - label: "Youtube"
+      icon: "fab fa-fw fa-youtube"
+      url: "https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ"
+    - label: "Medium"
+      icon: "fab fa-fw fa-medium"
+      url: "https://tony-space.medium.com/"
+    - label: "Habr"
+      icon: "fas fa-fw fa-link"
+      url: "https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ"
 
 
 defaults:
