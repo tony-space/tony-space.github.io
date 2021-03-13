@@ -58,7 +58,7 @@ author:
       url: "https://github.com/tony-space/"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "linkedin.com/in/tony-space"
+      url: "https://linkedin.com/in/tony-space"
     - label: "Youtube"
       icon: "fab fa-fw fa-youtube"
       url: "https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ"
@@ -67,7 +67,7 @@ author:
       url: "https://tony-space.medium.com/"
     - label: "Habr"
       icon: "fas fa-fw fa-link"
-      url: "https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ"
+      url: "https://habr.com/ru/users/tony-space/posts/"
 
 
 defaults:
