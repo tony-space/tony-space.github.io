@@ -1,0 +1,10 @@
+<!--
+assets/js-demos/constrained-dynamics/index.html
+assets/images/projects/constrained.svg
+-->
+
+<div onclick="let [imgNode, iframeNode] = this.children; imgNode.hidden = true; iframeNode.hidden = false; iframeNode.src='{{include.path}}';">
+	<img src="{{include.teaser}}">
+	<iframe width="{{include.w}}" height="{{include.h}}" src="" style="border: none;" hidden></iframe>
+</div>
+<figcaption>{{include.caption}}</figcaption>
