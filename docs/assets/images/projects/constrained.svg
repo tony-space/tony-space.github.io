@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g transform="translate(250 10)">
+        <line x1="-10" x2="10" y1="0" y2="0" stroke="black"></line>
+        <line x1="0" x2="0" y1="-10" y2="10" stroke="black"></line>
+    </g>
+
+    <g id="plot" transform="translate(250 10) scale(40 40)">
+    <circle r="0.1" cx="-0.00" cy="0.00"></circle><circle r="0.1" cx="-0.58" cy="0.81"></circle><circle r="0.1" cx="-1.11" cy="1.66"></circle><circle r="0.1" cx="-1.68" cy="2.49"></circle><circle r="0.1" cx="-2.47" cy="3.10"></circle><circle r="0.1" cx="-3.79" cy="2.60"></circle><circle r="0.1" cx="-5.20" cy="4.33"></circle><circle r="0.1" cx="-3.88" cy="4.83"></circle><line stroke="red" stroke-width="0.05" x1="-0.00" y1="0.00" x2="-0.58" y2="0.81"></line><line stroke="red" stroke-width="0.05" x1="-0.58" y1="0.81" x2="-1.11" y2="1.66"></line><line stroke="red" stroke-width="0.05" x1="-1.11" y1="1.66" x2="-1.68" y2="2.49"></line><line stroke="red" stroke-width="0.05" x1="-1.68" y1="2.49" x2="-2.47" y2="3.10"></line><line stroke="red" stroke-width="0.05" x1="-2.47" y1="3.10" x2="-3.79" y2="2.60"></line><line stroke="red" stroke-width="0.05" x1="-2.47" y1="3.10" x2="-3.88" y2="4.83"></line><line stroke="red" stroke-width="0.05" x1="-3.79" y1="2.60" x2="-5.20" y2="4.33"></line><line stroke="red" stroke-width="0.05" x1="-3.79" y1="2.60" x2="-3.88" y2="4.83"></line><line stroke="red" stroke-width="0.05" x1="-5.20" y1="4.33" x2="-3.88" y2="4.83"></line></g>
+</svg>
