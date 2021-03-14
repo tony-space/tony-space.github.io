@@ -314,7 +314,7 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
-              <ul class="toc__menu"><li><a href="#airfoil-simulation">Airfoil simulation</a></li><li><a href="#simple-software-rasterizer">Simple Software Rasterizer</a></li><li><a href="#cuda-based-physics-simulations">CUDA-based physics simulations</a><ul><li><a href="#fast-n-body-simulation">Fast N-Body simulation</a></li><li><a href="#static-electrict-field-simulation">Static electrict field simulation</a></li><li><a href="#other-particle-based-simulations">Other particle-based simulations</a></li></ul></li><li><a href="#pure-webgl">Pure WebGL</a></li><li><a href="#physically-based-modeling">Physically based modeling</a></li><li><a href="#project-r-7-game">Project R-7 game</a></li></ul>
+              <ul class="toc__menu"><li><a href="#airfoil-simulation">Airfoil simulation</a></li><li><a href="#simple-software-rasterizer">Simple Software Rasterizer</a></li><li><a href="#cuda-based-physics-simulations">CUDA-based physics simulations</a><ul><li><a href="#fast-n-body-simulation">Fast N-Body simulation</a></li><li><a href="#static-electrict-field-simulation">Static electrict field simulation</a></li><li><a href="#other-particle-based-simulations">Other particle-based simulations</a></li></ul></li><li><a href="#constrained-dynamics-simulation">Constrained dynamics simulation</a></li><li><a href="#pure-webgl">Pure WebGL</a></li><li><a href="#project-r-7-game">Project R-7 game</a></li></ul>
 
             </nav>
           </aside>
@@ -419,24 +419,8 @@ This type of memory provides a better spatial location for euclidian space than 
 
 <p><a class="social-icons" href="https://github.com/tony-space/learning-cuda"><i class="fab fa-fw fa-github" aria-hidden="true"></i>Github page</a></p>
 
-<h2 id="pure-webgl">Pure WebGL</h2>
-<p><a href="https://tony-space.github.io/webgl/demos/bunny/">Stanford Bunny</a> is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.</p>
-
-<!--
-assets/js-demos/constrained-dynamics/index.html
-assets/images/projects/constrained.svg
--->
-
-<div onclick="let [imgNode, iframeNode] = this.children; imgNode.hidden = true; iframeNode.hidden = false; iframeNode.src='assets/js-demos/webgl/demos/bunny/index.html';">
-	<img src="assets/images/projects/webgl.jpg" />
-	<iframe width="600" height="500" src="" style="border: none;" hidden=""></iframe>
-</div>
-<figcaption>Click to run the demo. Use mouse and LMB to navigate.</figcaption>
-
-<p><a class="social-icons" href="https://github.com/tony-space/webgl"><i class="fab fa-fw fa-github" aria-hidden="true"></i>Github page</a></p>
-
-<h2 id="physically-based-modeling">Physically based modeling</h2>
-<p><a href="https://tony-space.github.io/physically-based-modeling/constrained-dynamics/index.html">Constrained dynamics simulation</a> is inspired by the <a href="https://www.cs.cmu.edu/~baraff/sigcourse/">“Physically Based Modeling: Principles and Practice”</a> course by Carnegie Mellon University.</p>
+<h2 id="constrained-dynamics-simulation">Constrained dynamics simulation</h2>
+<p>“Constrained dynamics simulation” is inspired by the <a href="https://www.cs.cmu.edu/~baraff/sigcourse/">“Physically Based Modeling: Principles and Practice”</a> course by Carnegie Mellon University.</p>
 
 <!--
 assets/js-demos/constrained-dynamics/index.html
@@ -454,6 +438,22 @@ assets/images/projects/constrained.svg
 <p>If you’re keen on the math model the simulation based on, please take a look at <a href="https://www.cs.cmu.edu/~baraff/sigcourse/notesf.pdf"><strong>Constrained Dynamics</strong></a> lecture.</p>
 
 <p><a class="social-icons" href="https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics"><i class="fab fa-fw fa-github" aria-hidden="true"></i>Github page</a></p>
+
+<h2 id="pure-webgl">Pure WebGL</h2>
+<p><a href="https://tony-space.github.io/webgl/demos/bunny/">Stanford Bunny</a> is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.</p>
+
+<!--
+assets/js-demos/constrained-dynamics/index.html
+assets/images/projects/constrained.svg
+-->
+
+<div onclick="let [imgNode, iframeNode] = this.children; imgNode.hidden = true; iframeNode.hidden = false; iframeNode.src='assets/js-demos/webgl/demos/bunny/index.html';">
+	<img src="assets/images/projects/webgl.jpg" />
+	<iframe width="600" height="500" src="" style="border: none;" hidden=""></iframe>
+</div>
+<figcaption>Click to run the demo. Use mouse and LMB to navigate.</figcaption>
+
+<p><a class="social-icons" href="https://github.com/tony-space/webgl"><i class="fab fa-fw fa-github" aria-hidden="true"></i>Github page</a></p>
 
 <h2 id="project-r-7-game">Project R-7 game</h2>
 <p>This game was made in 2010-2011 for <a href="http://www.olimpsozvezdie.ru/">“Sozvezdie” (“Constellation”)</a> competition among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.</p>
@@ -514,7 +514,7 @@ I couldn’t have finished my competition project without these amazing simulato
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 Anton Vasin. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 Anton Vasin.</div>
 
       </footer>
     </div>
