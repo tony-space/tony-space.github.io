@@ -1,12 +1,12 @@
 # main links
 main:
-#  - title: "Projects"
-#    url: /
+  - title: "Projects"
+    url: /
 #  - title: "About"
 #    url: /about/
 #  - title: "Posts"
 #    url: /posts/
-#  - title: "CV"
-#    url: /cv/
+  - title: "CV"
+    url: /avasinCV.pdf
 #  - title: "Sitemap"
 #    url: /sitemap/

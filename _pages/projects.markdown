@@ -106,7 +106,7 @@ This is just a simple WebGL app supporting asynchronous loading of the model, ve
 
 {% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}.
 
-{% include extlink.html href="assets/js-demos/webgl/demos/bunny/index.html" icon=site.icons.github content="Standalone demo" %}.
+{% include extlink.html href="assets/js-demos/webgl/demos/bunny/index.html" icon=site.icons.link content="Standalone demo" %}.
 
 ## Project R-7 game
 This game was made back in 2010-2011 for ["Sozvezdie" ("Constellation")](http://www.olimpsozvezdie.ru/) competition among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.
