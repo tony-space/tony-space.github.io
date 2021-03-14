@@ -37,10 +37,10 @@ exclude:
 # Site settings
 locale: "en-US"
 title: &name Anton Vasin
-subtitle: "A software architect"
+subtitle: "Software Architect"
 email: mail@vasin.space
 description: >- # this means to ignore newlines until "baseurl:"
-  A software architect personal page.
+  Personal page
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 repository: "tony-space/tony-space.github.io"
@@ -53,6 +53,7 @@ icons:
   youtube: &icon-youtube "fab fa-fw fa-youtube"
   medium: &icon-medium "fab fa-fw fa-medium"
   habr: &icon-habr "fas fa-fw fa-link"
+  link: "fas fa-fw fa-link"
 
 # Site Author
 author:

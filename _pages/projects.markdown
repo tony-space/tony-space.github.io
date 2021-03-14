@@ -23,7 +23,7 @@ This is a [DEM-based](https://en.wikipedia.org/wiki/Discrete_element_method) sim
 The simulation process 2M particles on the GPU using [a highly parallel approach](https://developer.nvidia.com/blog/thinking-parallel-part-iii-tree-construction-gpu/) to construct [a BVH-acceleration structure](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy).
 This BVH-tree is necessary for doing potential collision tests quickly. The collision response is a simple Hooke's law.
 
-Supports both CPU and CUDA implementations.
+The software provides both CPU and CUDA implementations.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YDmFNMMdeBg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFrCLoRJak" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -39,8 +39,8 @@ to know more about technical details.
 {% include extlink.html href="https://github.com/tony-space/WingSimulator" icon=site.icons.github content="Github page" %} /
 {% include extlink.html href="https://github.com/tony-space/WingSimulator/releases/tag/1.0.1" icon=site.icons.github content="Windows binaries" %}
 
-## Simple Software Rasterizer
-This is just an exercise to consolidate knowledge of homogeneous coordinates and rasterization algorithms.
+## Software rasterizer
+An exercise to consolidate knowledge of homogeneous coordinates and rasterization algorithms.
 I've developed a CPU-based software rasterizer using Parallel STL -- a standard C++17 feature.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/blnUOKg35lg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -56,57 +56,62 @@ I've developed a CPU-based software rasterizer using Parallel STL -- a standard 
 * Gamma correction.
 * Screen space shadows
 
-{% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer" icon=site.icons.github content="Github page" %} /
-{% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer/releases" icon=site.icons.github content="Windows/Linux binaries" %}
+More details: {% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer" icon=site.icons.github content="Github page" %}.
+
+Demo: {% include extlink.html href="https://github.com/tony-space/SimpleSoftwareRasterizer/releases" icon=site.icons.github content="Windows/Linux binaries" %}.
 
 ## CUDA-based physics simulations
 The project is inspired by the [Intro to parallel programming](https://www.youtube.com/playlist?list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2) course by Udacity and some of [GPU Gems 3](https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_pref01.html) articles.
 
 ### Fast N-Body simulation
-Even having *O(N<sup>2</sup>)* complexity the simulation manages to work in real-time processing 16384 particles.
-It utilizes the superpowers of Nvidia GPUs such as ultimate parallelism and on-chip shared memory for memory bandwidth improvements.
+Even being of *O(N<sup>2</sup>)* complexity the simulation manages to work in real-time processing 16384 particles.
+It utilizes the superpowers of Nvidia GPUs such as ultimate parallelism and [on-chip shared memory](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#shared-memory).
 {% include gallery id="nbodysim" caption="N-body simulation (clickable)" %}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R_SuIDaajrw" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-Based on a GPU Gems 3 [article](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda).
+Based on [a GPU Gems 3 article](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda).
 
 ### Static electrict field simulation
 This simulation is based on an electric potential field reconstruction.
 {% include gallery id="efield" caption="Static electrict field (clickable)" %}
 The field is simply a 2D matrix of vector values.
-The matrix is stored in a very specific type of 2D array -- a [Texture memory](http://cuda-programming.blogspot.com/2013/02/texture-memory-in-cuda-what-is-texture.html).
+The matrix is stored in a very specific type of 2D array -- a [Texture memory](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#texture-memory).
 This type of memory provides a better spatial location for euclidian space than a regular C-like 2D array.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/s08MgdxT6wg" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Other particle-based simulations
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1XhtUBxeYwY" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pYDWTJo18sE" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-Other stuff is available
+Other demos are available on
 {% include extlink.html href="https://www.youtube.com/playlist?list=PLwr8DnSlIMg0ZdLeu9lJRSsSaU7Z9HqKw" icon=site.icons.youtube content="Youtube" %}.
 
-{% include extlink.html href="https://github.com/tony-space/learning-cuda" icon=site.icons.github content="Github page" %}
+{% include extlink.html href="https://github.com/tony-space/learning-cuda" icon=site.icons.github content="Github page" %}.
 
 ## Constrained dynamics simulation
 "Constrained dynamics simulation" is inspired by the ["Physically Based Modeling: Principles and Practice"](https://www.cs.cmu.edu/~baraff/sigcourse/) course by Carnegie Mellon University.
 
 {% include iframe.html path="assets/js-demos/constrained-dynamics/index.html" teaser="assets/images/projects/constrained.svg" caption="Click to run the demo" w=500 h=320 %}
 
-The **key feature** of the simulation is that it's using **ideal constraints** as joints between material points, **not springs**. The simulation uses the explicit fourth-order Runge-Kutta method in order to solve an ordinary differential equation of the simulation state in the phase space.
+The **key feature** of the simulation is that it's using **ideal constraints** as joints between material points, **not springs**. The simulation uses the explicit fourth-order Runge-Kutta method in order to solve the ordinary differential equation of the simulation state in the phase space.
 
-If you're keen on the math model the simulation based on, please take a look at [**Constrained Dynamics**](https://www.cs.cmu.edu/~baraff/sigcourse/notesf.pdf) lecture.
+If you want to know more about the math model the simulation is based on, please take a look at the [**Constrained Dynamics**](https://www.cs.cmu.edu/~baraff/sigcourse/notesf.pdf) lecture.
 
-{% include extlink.html href="https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics" icon=site.icons.github content="Github page" %}
+{% include extlink.html href="https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics" icon=site.icons.github content="Github page" %}.
+
+{% include extlink.html href="assets/js-demos/constrained-dynamics/index.html" icon=site.icons.link content="Standalone demo" %}.
 
 ## Pure WebGL
-[Stanford Bunny](https://tony-space.github.io/webgl/demos/bunny/) is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.
+This is just a simple WebGL app supporting asynchronous loading of the model, vertex, and fragment shaders.
 
 {% include iframe.html path="assets/js-demos/webgl/demos/bunny/index.html" teaser="assets/images/projects/webgl.jpg" caption="Click to run the demo. Use mouse and LMB to navigate." w=600 h=500 %}
 
-{% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}
+{% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}.
+
+{% include extlink.html href="assets/js-demos/webgl/demos/bunny/index.html" icon=site.icons.github content="Standalone demo" %}.
 
 ## Project R-7 game
-This game was made in 2010-2011 for ["Sozvezdie" ("Constellation")](http://www.olimpsozvezdie.ru/) competition among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.
+This game was made back in 2010-2011 for ["Sozvezdie" ("Constellation")](http://www.olimpsozvezdie.ru/) competition among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.
 
-The physics was simplified because making a detailed simulation was a big deal for me back in school. But it was enough to win the first prize.
+The physics was simplified because making a detailed simulation was a big deal for me back in school. But it was good enough to win the first prize.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pdDCMeKz5og" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Gy8zDOU4IE0" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
