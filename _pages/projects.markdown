@@ -85,15 +85,8 @@ Other stuff is available
 
 {% include extlink.html href="https://github.com/tony-space/learning-cuda" icon=site.icons.github content="Github page" %}
 
-## Pure WebGL
-[Stanford Bunny](https://tony-space.github.io/webgl/demos/bunny/) is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.
-
-{% include iframe.html path="assets/js-demos/webgl/demos/bunny/index.html" teaser="assets/images/projects/webgl.jpg" caption="Click to run the demo. Use mouse and LMB to navigate." w=600 h=500 %}
-
-{% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}
-
-## Physically based modeling
-[Constrained dynamics simulation](https://tony-space.github.io/physically-based-modeling/constrained-dynamics/index.html) is inspired by the ["Physically Based Modeling: Principles and Practice"](https://www.cs.cmu.edu/~baraff/sigcourse/) course by Carnegie Mellon University.
+## Constrained dynamics simulation
+"Constrained dynamics simulation" is inspired by the ["Physically Based Modeling: Principles and Practice"](https://www.cs.cmu.edu/~baraff/sigcourse/) course by Carnegie Mellon University.
 
 {% include iframe.html path="assets/js-demos/constrained-dynamics/index.html" teaser="assets/images/projects/constrained.svg" caption="Click to run the demo" w=500 h=320 %}
 
@@ -102,6 +95,13 @@ The **key feature** of the simulation is that it's using **ideal constraints** a
 If you're keen on the math model the simulation based on, please take a look at [**Constrained Dynamics**](https://www.cs.cmu.edu/~baraff/sigcourse/notesf.pdf) lecture.
 
 {% include extlink.html href="https://github.com/tony-space/physically-based-modeling/tree/master/constrained-dynamics" icon=site.icons.github content="Github page" %}
+
+## Pure WebGL
+[Stanford Bunny](https://tony-space.github.io/webgl/demos/bunny/) is just a simple WebGL application with an asynchronous loading of the model, vertex and fragment shaders.
+
+{% include iframe.html path="assets/js-demos/webgl/demos/bunny/index.html" teaser="assets/images/projects/webgl.jpg" caption="Click to run the demo. Use mouse and LMB to navigate." w=600 h=500 %}
+
+{% include extlink.html href="https://github.com/tony-space/webgl" icon=site.icons.github content="Github page" %}
 
 ## Project R-7 game
 This game was made in 2010-2011 for ["Sozvezdie" ("Constellation")](http://www.olimpsozvezdie.ru/) competition among schoolchildren. One of the rules of the competition was, that competitors were not allowed to use a third-party game engine. So I made it by myself using only C++ and OpenGL. Plus some additional libraries such as GLUT and Audiere.
