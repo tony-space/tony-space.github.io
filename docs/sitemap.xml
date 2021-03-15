@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>/posts/</loc>
+<loc>https://vasin.space/posts/</loc>
 </url>
 <url>
-<loc>/</loc>
+<loc>https://vasin.space/</loc>
 </url>
 <url>
-<loc>/assets/js-demos/constrained-dynamics/</loc>
+<loc>https://vasin.space/assets/js-demos/constrained-dynamics/</loc>
 <lastmod>2021-03-14T21:17:55+03:00</lastmod>
 </url>
 <url>
-<loc>/assets/js-demos/webgl/demos/bunny/</loc>
+<loc>https://vasin.space/assets/js-demos/webgl/demos/bunny/</loc>
 <lastmod>2021-03-14T21:17:55+03:00</lastmod>
 </url>
 <url>
-<loc>/avasinCV.pdf</loc>
+<loc>https://vasin.space/avasinCV.pdf</loc>
 <lastmod>2021-03-15T13:17:59+03:00</lastmod>
 </url>
 </urlset>
