@@ -15,7 +15,7 @@ efield:
     image_path: /assets/images/projects/electric-field.png
     alt: "Static Electric Field"
 ---
-A collection of my pet-projects projects.
+A collection of my pet-projects.
 
 ## Airfoil simulation
 This is a [DEM-based](https://en.wikipedia.org/wiki/Discrete_element_method) simulation designed to test [the Newtonian lift](https://www.grc.nasa.gov/www/k-12/airplane/bernnew.html) concept.
