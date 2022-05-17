@@ -60,7 +60,6 @@ author:
   name             : *name
   avatar           : "/assets/images/me.jpg"
   bio              : "Master of Science in Software Engineering, a big fan of high-performance GPGPU computing and computer graphics."
-  location         : "Moscow, Russia"
   links:
     - label: "mail@vasin.space"
       icon: *icon-email
