@@ -37,7 +37,7 @@ exclude:
 # Site settings
 locale: "en-US"
 title: &name Anton Vasin
-subtitle: "Software Architect"
+subtitle: "Principal Software Engineer"
 email: mail@vasin.space
 description: >- # this means to ignore newlines until "baseurl:"
   Personal page
