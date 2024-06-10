@@ -1,10 +1,11 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
-  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.26.1 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
+
 <html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
@@ -42,16 +43,8 @@
 
 
 
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    
-      "@type": "Person",
-      "name": null,
-      "url": "https://vasin.space/"
-    
-  }
-</script>
+
+
 
 
 
@@ -63,33 +56,18 @@
 
 
   <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Anton Vasin Feed">
-
-
-<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
+<script type="text/javascript">
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
 </script>
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
 
-<!--[if IE]>
-  <style>
-    /* old IE unsupported flexbox fixes */
-    .greedy-nav .site-title {
-      padding-right: 3em;
-    }
-    .greedy-nav button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
-  </style>
-<![endif]-->
 
 
     <!-- start custom head snippets -->
@@ -102,17 +80,12 @@
 
   <body class="layout--posts">
     <nav class="skip-links">
-  <h2 class="screen-reader-text">Skip links</h2>
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
     <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
     <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
   </ul>
 </nav>
-
-    <!--[if lt IE 9]>
-<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-<![endif]-->
 
     
 
@@ -123,12 +96,20 @@
         
         <a class="site-title" href="/">
           Anton Vasin
-          <span class="site-subtitle">Software Architect</span>
+          <span class="site-subtitle">Principal Software Engineer</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="/">Projects</a>
+              <a
+                href="/"
+                
+                
+              >Projects</a>
             </li><li class="masthead__menu-item">
-              <a href="/avasinCV.pdf">CV</a>
+              <a
+                href="/avasinCV.pdf"
+                
+                
+              >CV</a>
             </li></ul>
         
         <button class="greedy-nav__toggle hidden" type="button">
@@ -153,22 +134,22 @@
   
 
 
-<div itemscope itemtype="https://schema.org/Person">
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
 
   
     <div class="author__avatar">
-      
-        <img src="/assets/images/me.jpg" alt="Anton Vasin" itemprop="image">
-      
+      <a href="https://vasin.space/">
+        <img src="/assets/images/me.jpg" alt="Anton Vasin" itemprop="image" class="u-photo">
+      </a>
     </div>
   
 
   <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://vasin.space/" itemprop="url">Anton Vasin</a>
+    </h3>
     
-      <h3 class="author__name" itemprop="name">Anton Vasin</h3>
-    
-    
-      <div class="author__bio" itemprop="description">
+      <div class="author__bio p-note" itemprop="description">
         <p>Master of Science in Software Engineering, a big fan of high-performance GPGPU computing and computer graphics.</p>
 
       </div>
@@ -183,27 +164,27 @@
       
         
           
-            <li><a href="mailto:mail@vasin.space" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">mail@vasin.space</span></a></li>
+            <li><a href="mailto:mail@vasin.space" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">mail@vasin.space</span></a></li>
           
         
           
-            <li><a href="https://github.com/tony-space/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+            <li><a href="https://github.com/tony-space/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
           
         
           
-            <li><a href="https://linkedin.com/in/tony-space" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://linkedin.com/in/tony-space" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
           
         
           
-            <li><a href="https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">Youtube</span></a></li>
+            <li><a href="https://www.youtube.com/channel/UCmq3iXSJNTzHmaiIxEHURwQ" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">Youtube</span></a></li>
           
         
           
-            <li><a href="https://tony-space.medium.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-medium" aria-hidden="true"></i><span class="label">Medium</span></a></li>
+            <li><a href="https://tony-space.medium.com/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-medium" aria-hidden="true"></i><span class="label">Medium</span></a></li>
           
         
           
-            <li><a href="https://habr.com/ru/users/tony-space/posts/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Habr</span></a></li>
+            <li><a href="https://habr.com/ru/users/tony-space/posts/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Habr</span></a></li>
           
         
       
@@ -258,7 +239,7 @@
 
       <!--
   <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
       <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
     </a>
   </li>
@@ -290,6 +271,8 @@
 
   </div>
 </div>
+
+      
     </div>
 
     
@@ -302,6 +285,8 @@
         <div class="page__footer-follow">
   <ul class="social-icons">
     
+      <li><strong>Follow:</strong></li>
+    
 
     
 
@@ -311,14 +296,13 @@
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2022 Anton Vasin.</div>
+<div class="page__footer-copyright">&copy; 2024 Anton Vasin.</div>
 
       </footer>
     </div>
 
     
   <script src="/assets/js/main.min.js"></script>
-
 
 
 
