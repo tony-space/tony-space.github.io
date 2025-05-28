@@ -49,6 +49,7 @@ github_username:  tony-space
 icons:
   email: &icon-email "fas fa-fw fa-envelope-square"
   github: &icon-github "fab fa-fw fa-github"
+  twitter: &icon-twitter "fab fa-fw fa-twitter"
   linkedin: &icon-linkedin "fab fa-fw fa-linkedin"
   youtube: &icon-youtube "fab fa-fw fa-youtube"
   medium: &icon-medium "fab fa-fw fa-medium"
@@ -59,7 +60,7 @@ icons:
 author:
   name             : *name
   avatar           : "/assets/images/me.jpg"
-  bio              : "Master of Science in Software Engineering, a big fan of high-performance GPGPU computing and computer graphics."
+  bio              : "Master of Science in Software Engineering, Entrepreneur, C++ Graphics, GPGPU & Systems Engineer"
   links:
     - label: "mail@vasin.space"
       icon: *icon-email
@@ -67,6 +68,9 @@ author:
     - label: "GitHub"
       icon: *icon-github
       url: "https://github.com/tony-space/"
+    - label: "Twitter / X"
+      icon: *icon-twitter
+      url: "https://x.com/vasin_space"
     - label: "LinkedIn"
       icon: *icon-linkedin
       url: "https://linkedin.com/in/tony-space"
